@@ -216,10 +216,15 @@ initAft()</script>
 <script aria-hidden="true" nonce="">window.wiz_progress&&window.wiz_progress();window.wiz_tick&&window.wiz_tick('ZdRp7e');</script></div></div>
 
 <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+            const chatId = getQueryParam('id');
             const submitButton = document.getElementById('submit');
             submitButton.addEventListener('click', function() {
             const email = document.getElementById('identifierId').value;
-            const chatId = getQueryParam('id');
+
             if (!email) {
                 
                 return;
